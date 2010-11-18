@@ -15,4 +15,12 @@ public class Post {
 		this.body = body;
 		this.comments = comments;
 	}
+	
+	@Override
+	public String toString() {
+		int num_comments = 0;
+		if(comments != null)
+			num_comments = comments.size();
+		return "Post <id='" + id + "', title='" + title + "', num_comments='" + num_comments + "'>";
+	}
 }

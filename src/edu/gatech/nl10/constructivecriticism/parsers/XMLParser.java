@@ -1,53 +1,133 @@
 package edu.gatech.nl10.constructivecriticism.parsers;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.lang.model.element.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import edu.gatech.nl10.constructivecriticism.models.Comment;
 import edu.gatech.nl10.constructivecriticism.models.Post;
 
 public class XMLParser {
-	public static ArrayList<Post> parse(String xmlFileName) {
-		File xmlFile = new File(xmlFileName);
+	private static Document dom;
+	
+	private static void parseXmlFile() {
+		// get the factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db;
-		Document doc;
+
 		try {
-			db = dbf.newDocumentBuilder();
-			doc = db.parse(xmlFile);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+
+			// Using factory get an instance of document builder
+			DocumentBuilder db = dbf.newDocumentBuilder();
+
+			// parse using builder to get DOM representation of the XML file
+			dom = db.parse("data/posts.xml");
+
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (SAXException se) {
+			se.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
-		if (doc != null) {
-			NodeList postElements = doc.getElementsByTagName("post");
-			if (postElements != null && postElements.getLength() > 0) {
-				ArrayList<Post> posts = new ArrayList<Post>();
-				Node postElement;
-				System.out.println(postElements.getLength());
-				for (int i = 0; i < postElements.getLength(); i++) {
-					// Post Elements
-					postElement = postElements.item(i);
-					NodeList x = postElement.getChildNodes();
-					String postId = x.item(1).getTextContent();
-					String postTitle = x.item(2).getTextContent();
-					String postBody = x.item(3).getTextContent();
-					
-					//TODO: Add Comments
-					posts.add(new Post(postId, postTitle, postBody, null));
-				}
-				return posts;
+	}
+	
+	private static ArrayList<Post> parseDocument() {
+		// get the root elememt
+		org.w3c.dom.Element docEle = dom.getDocumentElement();
+		ArrayList<Post> posts = new ArrayList<Post>();
+		
+		// get a nodelist of <post> elements
+		NodeList nl = docEle.getElementsByTagName("post");
+		if (nl != null && nl.getLength() > 0) {
+			for (int i = 0; i < nl.getLength(); i++) {
+				Element el = (Element) nl.item(i);
+				Post p = getPost(el);
+				posts.add(p);
 			}
 		}
-		return null;
+		return posts;
+	}
+	
+	private static Post getPost(Element el) {
+		String title = getTextValue(el,"title");
+		String id = getTextAttribute(el,"id");
+		String body = getTextValue(el, "body");
+		
+		//Parse Comments
+		ArrayList<Comment> comments = new ArrayList<Comment>();
+		NodeList nl = el.getElementsByTagName("comment");
+		if (nl != null && nl.getLength() > 0) {
+			for (int i = 0; i < nl.getLength(); i++) {
+				Element comment_el = (Element) nl.item(i);
+				Comment c = getComment(comment_el);
+				comments.add(c);
+			}
+		}
+		
+		//Create a new Post with the value read from the xml nodes
+		Post p = new Post(id, title, body, comments);
+		
+		return p;
+	}
+	
+	private static Comment getComment(Element commentEl) {
+		String text = commentEl.getTextContent();
+		Comment c = new Comment(text);
+		
+		return c;
+	}
 
+	private static String getTextAttribute(Element el, String attr_name) {
+		return el.getAttribute(attr_name).toString();
+	}
+
+	/**
+	 * I take a xml element and the tag name, look for the tag and get
+	 * the text content 
+	 * i.e for <post><title>Earthquake in Japan</title></post> xml snippet if
+	 * the Post points to post node and tagName is title I will return "Earthquake in Japan"  
+	 * @param ele
+	 * @param tagName
+	 * @return text string for the node requested
+	 */
+	private static String getTextValue(Element ele, String tagName) {
+		String textVal = null;
+		NodeList nl = ele.getElementsByTagName(tagName);
+		if(nl != null && nl.getLength() > 0) {
+			Element el = (Element)nl.item(0);
+			textVal = el.getFirstChild().getNodeValue();
+		}
+
+		return textVal;
+	}
+
+	
+	/**
+	 * Calls getTextValue and returns a int value
+	 * @param ele
+	 * @param tagName
+	 * @return integer value
+	 */
+	private static int getIntValue(Element ele, String tagName) {
+		//TODO: catch the exception here
+		return Integer.parseInt(getTextValue(ele,tagName));
+	}
+	
+	/**
+	 * Main Function used to call parsing on a posts XML document
+	 * @param xmlFileName
+	 * @return ArrayList of Post objects
+	 */
+	public static ArrayList<Post> parse(String xmlFileName) {
+		parseXmlFile();
+		return parseDocument();
 	}
 }
