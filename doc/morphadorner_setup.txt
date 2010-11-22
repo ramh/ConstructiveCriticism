@@ -1,0 +1,22 @@
+1. Download the zip file from:
+http://morphadorner.northwestern.edu/morphadorner/download/
+
+2. Extract it
+
+3. Run "ant clean"
+
+4. Run "ant"
+
+5. If you get error saying 
+"src/edu/northwestern/at/utils/corpuslinguistics/phonetics/DoubleMetaphone.java:597: duplicate case label"
+do 5(a), else go to 6
+	5(a) comment out the following lines in the file above as:
+	//                case 'Ñ':
+	//                    current++;
+	//                    add('N');
+	//                    break;
+	
+6. Run "ant jar" to get morphadorner.jar in lib/ folder.
+
+7. Add this as "Add External JAR" on ur project
+	
