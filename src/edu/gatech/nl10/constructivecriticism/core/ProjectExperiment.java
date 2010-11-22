@@ -6,7 +6,7 @@ import java.util.Iterator;
 import edu.gatech.nl10.constructivecriticism.models.Post;
 import edu.gatech.nl10.constructivecriticism.parsers.XMLParser;
 
-public class XMLParsingTest {
+public class ProjectExperiment {
 	public static void main(String[] args) {
 		// Parsing
 		ArrayList<Post> posts = XMLParser.parse("data/posts.xml");
@@ -18,5 +18,7 @@ public class XMLParsingTest {
 			System.out.println(post_it.next());
 		
 		System.out.println(posts.get(1).comments.get(0));
+		
+		System.out.println(ExtractAllFeatures.extract(posts.get(1).comments.get(0)));
 	}
 }
