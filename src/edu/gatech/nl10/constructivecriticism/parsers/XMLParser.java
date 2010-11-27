@@ -80,7 +80,11 @@ public class XMLParser {
 	
 	private static Comment getComment(Element commentEl) {
 		String text = commentEl.getTextContent();
-		Comment c = new Comment(text);
+		int responses = 0;
+		if(commentEl.hasAttribute("responses")) {
+			responses = Integer.parseInt(commentEl.getAttribute("responses"));
+		}
+		Comment c = new Comment(text, responses);
 		
 		return c;
 	}

@@ -1,0 +1,40 @@
+    *
+
+      Users want the comment to be on topic
+          o
+
+            Word count similarity between both title and body ^
+    *
+
+      Users want well written comments
+          o
+
+            Flesch-Kincaid Readability (comprehension difficulty)
+          o
+
+            Gunning-Fog Index (writing grade level estimate)
+          o
+
+            Average sentence length ^
+          o
+
+            Number of words in comment ^
+            Number of characters in comment ^
+            Average syllable ^
+    *
+
+      Users want novel discussion
+          o
+
+            Frequent word index (how often the comment uses words that are frequent in comments generally
+          o
+
+            Number of sub-comments ^
+    *
+
+      Users want rational comments, not emotional
+          o
+
+            Emoticon count ^
+
+            Punctuation count (repeated exclamation points) ^
