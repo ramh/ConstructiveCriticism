@@ -9,10 +9,10 @@
       Users want well written comments
           o
 
-            Flesch-Kincaid Readability (comprehension difficulty)
+            Flesch-Kincaid Readability (comprehension difficulty)^
           o
 
-            Gunning-Fog Index (writing grade level estimate)
+            Gunning-Fog Index (writing grade level estimate)^
           o
 
             Average sentence length ^
@@ -26,7 +26,7 @@
       Users want novel discussion
           o
 
-            Frequent word index (how often the comment uses words that are frequent in comments generally
+            Frequent word index (how often the comment uses words that are frequent in comments generally ^
           o
 
             Number of sub-comments ^

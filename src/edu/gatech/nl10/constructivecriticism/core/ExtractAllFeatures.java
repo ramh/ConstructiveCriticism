@@ -2,6 +2,8 @@ package edu.gatech.nl10.constructivecriticism.core;
 
 import java.util.ArrayList;
 
+import edu.gatech.nl10.constructivecriticism.features.FrequentWordIndexFE;
+import edu.gatech.nl10.constructivecriticism.features.ReadabilityFE;
 import edu.gatech.nl10.constructivecriticism.features.AverageSyllableCountFE;
 import edu.gatech.nl10.constructivecriticism.features.EmoticonPunctCountFE;
 import edu.gatech.nl10.constructivecriticism.features.PostCommentSimilarityFE;
@@ -25,6 +27,8 @@ public class ExtractAllFeatures {
 		fes.add(new EmoticonPunctCountFE());
 		fes.add(new ResponseCountFE());
 		fes.add(new PostCommentSimilarityFE());
+		fes.add(new ReadabilityFE());
+		//fes.add(new FrequentWordIndexFE());
 		
 	}
 	

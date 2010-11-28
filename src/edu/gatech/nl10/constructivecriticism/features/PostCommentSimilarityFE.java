@@ -44,7 +44,7 @@ public class PostCommentSimilarityFE implements FeatureExtractor{
 		
 		st = new StringTokenizer(c.post.title);
 		while(st.hasMoreElements()) {
-			word = ((String) st.nextElement()).trim();
+			word = ((String) st.nextElement()).trim().toLowerCase();
 			if(Pattern.matches(".*\\w.*", word) && !stopwords.contains(word)) {
 				postwords.add(word);
 			}
@@ -52,7 +52,7 @@ public class PostCommentSimilarityFE implements FeatureExtractor{
 		
 		st = new StringTokenizer(c.post.body);
 		while(st.hasMoreElements()) {
-			word = ((String) st.nextElement()).trim();
+			word = ((String) st.nextElement()).trim().toLowerCase();
 			if(Pattern.matches(".*\\w.*", word) && !stopwords.contains(word)) {
 				postwords.add(word);
 			}
@@ -61,7 +61,7 @@ public class PostCommentSimilarityFE implements FeatureExtractor{
 		st = new StringTokenizer(c.text);
 		int num_words = 0, num_sim_words = 0;
 		while(st.hasMoreElements()) {
-			word = ((String) st.nextElement()).trim();
+			word = ((String) st.nextElement()).trim().toLowerCase();
 			if(Pattern.matches(".*\\w.*", word)) {
 				if(postwords.contains(word)) {
 					num_sim_words++;
@@ -71,7 +71,7 @@ public class PostCommentSimilarityFE implements FeatureExtractor{
 				}
 			}
 		}
-		features.add(((double)num_sim_words) / (num_words * postwords.size()));
+		features.add(((double)num_sim_words) / Math.sqrt(num_words * postwords.size()));
 	
 		return features;
 	}	
