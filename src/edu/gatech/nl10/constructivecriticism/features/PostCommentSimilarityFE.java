@@ -57,7 +57,7 @@ public class PostCommentSimilarityFE implements FeatureExtractor{
 				postwords.add(word);
 			}
 		}
-		
+			
 		st = new StringTokenizer(c.post.body);
 		while(st.hasMoreElements()) {
 			word = ((String) st.nextElement()).trim().toLowerCase();

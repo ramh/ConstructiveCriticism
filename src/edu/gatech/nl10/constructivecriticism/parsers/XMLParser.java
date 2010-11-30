@@ -50,7 +50,7 @@ public class XMLParser {
 			for (int i = 0; i < nl.getLength(); i++) {
 				Element el = (Element) nl.item(i);
 				Post p = getPost(el);
-				posts.add(p);
+				if(p!=null) posts.add(p);
 			}
 		}
 		return posts;
@@ -68,12 +68,19 @@ public class XMLParser {
 			for (int i = 0; i < nl.getLength(); i++) {
 				Element comment_el = (Element) nl.item(i);
 				Comment c = getComment(comment_el);
-				comments.add(c);
+				if(c!=null) comments.add(c);
 			}
 		}
 		
 		//Create a new Post with the value read from the xml nodes
-		Post p = new Post(id, title, body, comments);
+		Post p;
+		if(id!=null && title!=null && body!=null && comments!=null) {
+			p = new Post(id, title, body, comments);
+			for(Comment c: comments)
+				c.post = p;
+		}
+		else 
+			p = null;
 		
 		return p;
 	}
@@ -84,7 +91,11 @@ public class XMLParser {
 		if(commentEl.hasAttribute("responses")) {
 			responses = Integer.parseInt(commentEl.getAttribute("responses"));
 		}
-		Comment c = new Comment(text, responses);
+		
+		Comment c;
+		if(text!=null)
+			c = new Comment(text, responses);
+		else c= null;
 		
 		return c;
 	}

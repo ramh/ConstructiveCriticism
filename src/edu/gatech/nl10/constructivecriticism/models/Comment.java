@@ -27,6 +27,13 @@ public class Comment {
 		this.post = post;
 	}	
 	
+	public Comment(String text, int responses) {
+		super();
+		this.text = text;
+		this.worth = 0;
+		this.responses = responses;
+	}	
+	
 	@Override
 	public String toString() {
 		return "Comment <worth='" + worth + "', text='" + text + "'>";

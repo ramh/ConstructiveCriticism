@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -74,7 +75,7 @@ public class ExtractAllFeatures {
 	public Instances processComments(ArrayList<Comment> comments) {
 		FastVector attr_names = new FastVector();
 		for(String name : getFeatureNames()) {
-			attr_names.addElement(name);
+			attr_names.addElement(new Attribute(name));
 		}
 		Instances insts = new Instances("processed_comments", attr_names, comments.size());
 		insts.setClassIndex(0);
@@ -99,11 +100,20 @@ public class ExtractAllFeatures {
 	public static void main(String[] args) {
 		//ArrayList<Post> posts = XMLParser.parse("");
 		//Comment c = posts.indexAt(1).comments.indexAt(0);
-		ArrayList<Comment> comments = new ArrayList<Comment>();
-		Post p = new Post("p1", "AMD's Athlon is the best processor line", "While Intel's core 2 duo line has had lots of success, the athlon processors were the best technology improvement of their time! :D", comments);
-		Comment c = new Comment("The AMD's Athlon processor sucks!!! :P :3 ;-D", p, 4);
-		comments.add(c);
+//		ArrayList<Comment> comments = new ArrayList<Comment>();
+//		Post p = new Post("p1", "AMD's Athlon is the best processor line", "While Intel's core 2 duo line has had lots of success, the athlon processors were the best technology improvement of their time! :D", comments);
+//		Comment c = new Comment("The AMD's Athlon processor sucks!!! :P :3 ;-D", p, 4);
+//		comments.add(c);
+		
+		ArrayList<Comment> all_comments = new ArrayList<Comment>();
+		ArrayList<Post> posts = XMLParser.parse("data/posts.xml");
+		for (Post post : posts)
+			all_comments.addAll(post.comments);
+		
 		ExtractAllFeatures eaf = new ExtractAllFeatures();
-		System.out.println(eaf.extract(c));
+		System.out.println(eaf.processComments(all_comments));
+		System.out.println(eaf.getFeatureNames().toString());
+		
+
 	}
 }

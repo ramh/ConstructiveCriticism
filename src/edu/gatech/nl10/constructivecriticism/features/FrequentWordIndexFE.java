@@ -12,14 +12,11 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.StringTokenizer;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import edu.gatech.nl10.constructivecriticism.models.Comment;
 

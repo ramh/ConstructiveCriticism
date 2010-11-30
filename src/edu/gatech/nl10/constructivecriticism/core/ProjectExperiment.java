@@ -18,7 +18,8 @@ public class ProjectExperiment {
 			System.out.println(post_it.next());
 		
 		System.out.println(posts.get(1).comments.get(0));
+		ExtractAllFeatures eaf = new ExtractAllFeatures();
 		
-		System.out.println(ExtractAllFeatures.extract(posts.get(1).comments.get(0)));
+		System.out.println(eaf.extract(posts.get(1).comments.get(0)));
 	}
 }
