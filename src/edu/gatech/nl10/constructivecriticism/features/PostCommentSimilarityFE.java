@@ -14,6 +14,14 @@ import edu.gatech.nl10.constructivecriticism.models.Post;
 
 public class PostCommentSimilarityFE implements FeatureExtractor{
 	private HashSet<String> stopwords;
+	private ArrayList<String> fnames;
+
+	public ArrayList<String> featureNames() {
+
+		fnames = new ArrayList<String>();
+		fnames.add("post_comment_similarity");
+		return fnames;
+	}
 	
 	public PostCommentSimilarityFE() {
 		stopwords = new HashSet<String>();

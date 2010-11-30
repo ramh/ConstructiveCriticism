@@ -8,6 +8,18 @@ import edu.gatech.nl10.constructivecriticism.models.Comment;
 import edu.northwestern.at.utils.corpuslinguistics.syllablecounter.EnglishSyllableCounter;
 
 public class ReadabilityFE implements FeatureExtractor{
+	private ArrayList<String> fnames;
+
+	public ArrayList<String> featureNames() {
+
+		fnames = new ArrayList<String>();
+		fnames.add("sentence_count");
+		fnames.add("avg_sentence_len");
+		fnames.add("avg_syllables_per_word");
+		fnames.add("flesch_kinkaid_ease");
+		fnames.add("gunning_fog_index");
+		return fnames;
+	}
 
 	public ArrayList<Double> extractFeatures(Comment c) {
 		ArrayList<Double> features = new ArrayList<Double>();

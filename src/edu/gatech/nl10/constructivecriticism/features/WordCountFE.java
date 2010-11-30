@@ -7,6 +7,14 @@ import java.util.regex.Pattern;
 import edu.gatech.nl10.constructivecriticism.models.Comment;
 
 public class WordCountFE implements FeatureExtractor{
+	private ArrayList<String> fnames;
+
+	public ArrayList<String> featureNames() {
+
+		fnames = new ArrayList<String>();
+		fnames.add("word_count");
+		return fnames;
+	}
 
 	public ArrayList<Double> extractFeatures(Comment c) {
 		ArrayList<Double> features = new ArrayList<Double>();

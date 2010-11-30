@@ -7,6 +7,15 @@ import java.util.regex.Pattern;
 import edu.gatech.nl10.constructivecriticism.models.Comment;
 
 public class EmoticonPunctCountFE implements FeatureExtractor{
+	private ArrayList<String> fnames;
+
+	public ArrayList<String> featureNames() {
+
+		fnames = new ArrayList<String>();
+		fnames.add("emoticon_count");
+		fnames.add("punctuation_count");
+		return fnames;
+	}
 
 	public ArrayList<Double> extractFeatures(Comment c) {
 		ArrayList<Double> features = new ArrayList<Double>();

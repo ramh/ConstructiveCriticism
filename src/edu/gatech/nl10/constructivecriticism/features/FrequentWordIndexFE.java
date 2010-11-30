@@ -27,6 +27,14 @@ public class FrequentWordIndexFE implements FeatureExtractor{
 	int MAX_FREQ_WORDS = 100;
 	int num_freq_words;
 	private HashSet<String> freqwords;
+	private ArrayList<String> fnames;
+
+	public ArrayList<String> featureNames() {
+
+		fnames = new ArrayList<String>();
+		fnames.add("freq_word_index");
+		return fnames;
+	}
 
 	public FrequentWordIndexFE() {
 		freqwords = new HashSet<String>();

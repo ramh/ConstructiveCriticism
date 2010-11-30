@@ -8,6 +8,14 @@ import edu.gatech.nl10.constructivecriticism.models.Comment;
 import edu.northwestern.at.utils.corpuslinguistics.syllablecounter.EnglishSyllableCounter;
 
 public class AverageSyllableCountFE implements FeatureExtractor{
+	private ArrayList<String> fnames;
+
+	public ArrayList<String> featureNames() {
+		
+		fnames = new ArrayList<String>();
+		fnames.add("avg_syllable_count");
+		return fnames;
+	}
 
 	public ArrayList<Double> extractFeatures(Comment c) {
 		EnglishSyllableCounter esc = new EnglishSyllableCounter();

@@ -2,7 +2,7 @@ package edu.gatech.nl10.constructivecriticism.models;
 
 public class Comment {
 	// Features
-	public String worth; //Value of the comment (valuable, useless, etc..)
+	public int worth; //Value of the comment (valuable = 1, useless = -1, unassigned = 0)
 
 	// Attributes
 	public String text;
@@ -14,7 +14,7 @@ public class Comment {
 	public Comment(String text) {
 		super();
 		this.text = text;
-		this.worth = null;
+		this.worth = 0;
 		this.responses = 0;
 		this.post = null;
 	}
@@ -22,7 +22,7 @@ public class Comment {
 	public Comment(String text, Post post, int responses) {
 		super();
 		this.text = text;
-		this.worth = null;
+		this.worth = 0;
 		this.responses = responses;
 		this.post = post;
 	}	
