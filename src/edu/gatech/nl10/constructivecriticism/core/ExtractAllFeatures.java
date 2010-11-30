@@ -1,6 +1,13 @@
 package edu.gatech.nl10.constructivecriticism.core;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import weka.core.FastVector;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.converters.ArffSaver;
 
 import edu.gatech.nl10.constructivecriticism.features.FrequentWordIndexFE;
 import edu.gatech.nl10.constructivecriticism.features.ReadabilityFE;
@@ -11,6 +18,7 @@ import edu.gatech.nl10.constructivecriticism.features.ResponseCountFE;
 import edu.gatech.nl10.constructivecriticism.features.WordCountFE;
 import edu.gatech.nl10.constructivecriticism.features.FeatureExtractor;
 import edu.gatech.nl10.constructivecriticism.features.CharLengthFE;
+import edu.gatech.nl10.constructivecriticism.features.WorthFE;
 import edu.gatech.nl10.constructivecriticism.models.Comment;
 import edu.gatech.nl10.constructivecriticism.models.Post;
 import edu.gatech.nl10.constructivecriticism.parsers.XMLParser;
@@ -21,9 +29,11 @@ public class ExtractAllFeatures {
 	public ExtractAllFeatures() {
 		// Make a list of all features needed
 		fes = new ArrayList<FeatureExtractor>();
+		fes.add(new WorthFE()); // must be first
+		
 		fes.add(new CharLengthFE());
 		fes.add(new WordCountFE());
-		fes.add(new AverageSyllableCountFE());
+		//fes.add(new AverageSyllableCountFE());
 		fes.add(new EmoticonPunctCountFE());
 		fes.add(new ResponseCountFE());
 		fes.add(new PostCommentSimilarityFE());
@@ -32,14 +42,58 @@ public class ExtractAllFeatures {
 		
 	}
 	
-	public ArrayList<Double> extract(Comment c) {
+	public Instance extract(Comment c) {
 		
 		// Parse all Features
 		ArrayList<Double> features = new ArrayList<Double>();
+		ArrayList<String> fnames = new ArrayList<String>();
 		for(FeatureExtractor fe : fes) {
 			features.addAll(fe.extractFeatures(c));
+			fnames.addAll(fe.featureNames());
 		}
-		return features;
+		if(features.size() != fnames.size())
+			System.out.println("Features not all named.");
+		
+		double[] fvals = new double[features.size()];
+		for(int i=0; i < features.size(); i++) {
+			fvals[i] = features.get(i);
+		}
+		Instance inst = new Instance(1.0, fvals);
+		return inst;
+	}
+	
+	public ArrayList<String> getFeatureNames() {
+
+		ArrayList<String> fnames = new ArrayList<String>();
+		for(FeatureExtractor fe : fes) {
+			fnames.addAll(fe.featureNames());
+		}
+		return fnames;
+	}
+	
+	public Instances processComments(ArrayList<Comment> comments) {
+		FastVector attr_names = new FastVector();
+		for(String name : getFeatureNames()) {
+			attr_names.addElement(name);
+		}
+		Instances insts = new Instances("processed_comments", attr_names, comments.size());
+		insts.setClassIndex(0);
+		for(Comment c : comments) {
+			Instance inst = extract(c);
+			insts.add(inst);
+		}		
+		
+		ArffSaver saver = new ArffSaver();
+		saver.setInstances(insts);
+		try {
+			saver.setFile(new File("output/extracted_features.arff"));
+			saver.writeBatch();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return insts;
 	}
 	
 	public static void main(String[] args) {
