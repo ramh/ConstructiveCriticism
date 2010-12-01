@@ -61,9 +61,10 @@ public class ExtractAllFeatures {
 		if(features.size() != fnames.size())
 			System.out.println("Features not all named.");
 		
-		double[] fvals = new double[features.size()];
+		double[] fvals = new double[features.size()+1];
+		fvals[0] = 0.0;
 		for(int i=0; i < features.size(); i++) {
-			fvals[i] = features.get(i);
+			fvals[i+1] = features.get(i);
 		}
 		Instance inst = new Instance(1.0, fvals);
 		return inst;
@@ -108,7 +109,7 @@ public class ExtractAllFeatures {
 		ArffSaver saver = new ArffSaver();
 		saver.setInstances(insts);
 		try {
-			saver.setFile(new File("output/extracted_features.arff"));
+			saver.setFile(new File("output/features_kelsey1.arff"));
 			saver.writeBatch();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -118,7 +119,7 @@ public class ExtractAllFeatures {
 		return insts;
 	}
 	public String datafile = "data/posts.xml";
-	public String[] worthfiles = {"data/worthfiles1.txt", "data/worthfiles2.txt"};
+	public String[] worthfiles = {"data/worthkelsey1.txt"};
 	
 	public Instances loadWorthProcess() {
 		ArrayList<Comment> all_comments = new ArrayList<Comment>();
@@ -177,9 +178,12 @@ public class ExtractAllFeatures {
 				Comment c = all_comments.get(ind);
 				if(p == null || c.post != p ) {
 					p = c.post;
-					System.out.println(c.post);
+					System.out.println(c.post.body);
+					System.out.println();
+					System.out.println(c.post.title);
 					System.out.println("--------------------------------");
 				}
+				System.out.println("Number " + (ind-stind + 1));
 				System.out.println(c);
 				String worth = "";
 				boolean exit = false;
@@ -228,7 +232,7 @@ public class ExtractAllFeatures {
 		ExtractAllFeatures eaf = new ExtractAllFeatures();
 //		System.out.println(eaf.processComments(all_comments));
 //		System.out.println(eaf.getFeatureNames().toString());
-		//eaf.labelComments(0, "data/worthfiles2.txt");
+		//eaf.labelComments(0, "data/worthkelsey1.txt");
 		eaf.loadWorthProcess();
 		
 
