@@ -30,7 +30,7 @@ public class ExtractAllFeatures {
 	public ExtractAllFeatures() {
 		// Make a list of all features needed
 		fes = new ArrayList<FeatureExtractor>();
-		fes.add(new WorthFE()); // must be first
+//		fes.add(new WorthFE()); // must be first
 		
 		fes.add(new CharLengthFE());
 		fes.add(new WordCountFE());
@@ -74,13 +74,23 @@ public class ExtractAllFeatures {
 	
 	public Instances processComments(ArrayList<Comment> comments) {
 		FastVector attr_names = new FastVector();
+		
+		//Adding worth nominal feature
+		FastVector worthvals = new FastVector();
+		worthvals.addElement("Worthy"); worthvals.addElement("NotWorthy");
+		Attribute sentclass = new Attribute("Worth", worthvals);
+		attr_names.addElement(sentclass);
+		
 		for(String name : getFeatureNames()) {
 			attr_names.addElement(new Attribute(name));
 		}
+		
 		Instances insts = new Instances("processed_comments", attr_names, comments.size());
 		insts.setClassIndex(0);
+		
 		for(Comment c : comments) {
 			Instance inst = extract(c);
+			inst.setValue(0, c.worth);
 			insts.add(inst);
 		}		
 		

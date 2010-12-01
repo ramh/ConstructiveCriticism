@@ -20,6 +20,7 @@ print OUT '<?xml version="1.0"?>';
 print OUT "\n<posts>\n";
 
 
+my $post_count=0;
 foreach $url($response->decoded_content =~ m/<link>($root[^<]+)<\/link>/g){
 
 	$response = $mech->get($url);
@@ -69,6 +70,8 @@ foreach $url($response->decoded_content =~ m/<link>($root[^<]+)<\/link>/g){
 
 	print OUT "\t<\/comments>\n";
 	print OUT "\t<\/post>\n";
+  print "Post done: $post_count\n";
+  $post_count++;
 }
 
 print OUT "\t<\/posts>\n";
