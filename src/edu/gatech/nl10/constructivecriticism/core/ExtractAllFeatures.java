@@ -1,8 +1,14 @@
 package edu.gatech.nl10.constructivecriticism.core;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import weka.core.Attribute;
 import weka.core.FastVector;
@@ -72,7 +78,7 @@ public class ExtractAllFeatures {
 		return fnames;
 	}
 	
-	public Instances processComments(ArrayList<Comment> comments) {
+	public Instances processComments(ArrayList<Comment> comments, String[] worth) {
 		FastVector attr_names = new FastVector();
 		
 		//Adding worth nominal feature
@@ -88,10 +94,15 @@ public class ExtractAllFeatures {
 		Instances insts = new Instances("processed_comments", attr_names, comments.size());
 		insts.setClassIndex(0);
 		
+		int wind = 0;
 		for(Comment c : comments) {
-			Instance inst = extract(c);
-			inst.setValue(0, c.worth);
-			insts.add(inst);
+			if(worth[wind] != null) {
+				Instance inst = extract(c);
+				inst.setDataset(insts);
+				inst.setValue(0, worth[wind]);
+				insts.add(inst);
+			}
+			wind++;
 		}		
 		
 		ArffSaver saver = new ArffSaver();
@@ -106,6 +117,100 @@ public class ExtractAllFeatures {
 		
 		return insts;
 	}
+	public String datafile = "data/posts.xml";
+	public String[] worthfiles = {"data/worthfiles1.txt", "data/worthfiles2.txt"};
+	
+	public Instances loadWorthProcess() {
+		ArrayList<Comment> all_comments = new ArrayList<Comment>();
+		ArrayList<Post> posts = XMLParser.parse(datafile);
+		for (Post post : posts)
+			all_comments.addAll(post.comments);
+		
+		String[] worths = new String[all_comments.size()];
+		for(String wfile : worthfiles) {
+			try {
+				BufferedReader in = null;
+				try {
+					in = new BufferedReader(new FileReader(wfile));
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+				String nextline = in.readLine();
+				int thisind = Integer.parseInt(nextline);
+				nextline = in.readLine();
+				while(nextline != null) {
+					if(nextline.trim() != "")
+						worths[thisind] = nextline.trim();
+					nextline = in.readLine();
+					thisind++;
+				}
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		ExtractAllFeatures eaf = new ExtractAllFeatures();	
+		return eaf.processComments(all_comments, worths);
+	}
+	
+	public void labelComments(int stind, String wfname) {
+		ArrayList<Comment> all_comments = new ArrayList<Comment>();
+		ArrayList<Post> posts = XMLParser.parse(datafile);
+		for (Post post : posts)
+			all_comments.addAll(post.comments);
+		
+		Scanner in = new Scanner(System.in);
+		Post p = null;
+		BufferedWriter out = null;
+		try {
+			out = new BufferedWriter(new FileWriter(wfname));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+		try {
+			out.write(Integer.toString(stind));
+			out.newLine();
+			for(int ind = stind; ind < all_comments.size(); ind++) {
+				Comment c = all_comments.get(ind);
+				if(p == null || c.post != p ) {
+					p = c.post;
+					System.out.println(c.post);
+					System.out.println("--------------------------------");
+				}
+				System.out.println(c);
+				String worth = "";
+				boolean exit = false;
+				while(true) {
+					char input = in.nextLine().charAt(0);
+					if(input == 'p') {
+						worth = "Worthy";
+						break;
+					}
+					if(input == 'n') {
+						worth = "NotWorthy";
+						break;
+					}
+					if(input == 'q') {
+						exit = true;
+						break;
+					}
+					input = 0;
+				}
+				if(exit) break;
+				if(worth != "") {
+					out.write(worth);
+				}
+				out.newLine();
+			}
+			out.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
 		//ArrayList<Post> posts = XMLParser.parse("");
@@ -115,14 +220,16 @@ public class ExtractAllFeatures {
 //		Comment c = new Comment("The AMD's Athlon processor sucks!!! :P :3 ;-D", p, 4);
 //		comments.add(c);
 		
-		ArrayList<Comment> all_comments = new ArrayList<Comment>();
-		ArrayList<Post> posts = XMLParser.parse("data/posts.xml");
-		for (Post post : posts)
-			all_comments.addAll(post.comments);
+//		ArrayList<Comment> all_comments = new ArrayList<Comment>();
+//		ArrayList<Post> posts = XMLParser.parse("data/posts.xml");
+//		for (Post post : posts)
+//			all_comments.addAll(post.comments);
 		
 		ExtractAllFeatures eaf = new ExtractAllFeatures();
-		System.out.println(eaf.processComments(all_comments));
-		System.out.println(eaf.getFeatureNames().toString());
+//		System.out.println(eaf.processComments(all_comments));
+//		System.out.println(eaf.getFeatureNames().toString());
+		//eaf.labelComments(0, "data/worthfiles2.txt");
+		eaf.loadWorthProcess();
 		
 
 	}
