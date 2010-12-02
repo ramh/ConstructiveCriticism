@@ -9,7 +9,7 @@ import edu.gatech.nl10.constructivecriticism.parsers.XMLParser;
 public class ProjectExperiment {
 	public static void main(String[] args) {
 		// Parsing
-		ArrayList<Post> posts = XMLParser.parse("data/posts.xml");
+		ArrayList<Post> posts = XMLParser.parse("data/hugeposts.xml");
 		System.out.println("Total Posts Parsed: " + posts.size());
 		
 		//Printing

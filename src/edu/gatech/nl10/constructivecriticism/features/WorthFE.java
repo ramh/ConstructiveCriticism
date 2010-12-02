@@ -16,7 +16,7 @@ public class WorthFE implements FeatureExtractor{
 
 	public ArrayList<Double> extractFeatures(Comment c) {
 		ArrayList<Double> features = new ArrayList<Double>();	
-		features.add(c.worth);
+//		features.add(c.worth);
 	
 		return features;
 	}

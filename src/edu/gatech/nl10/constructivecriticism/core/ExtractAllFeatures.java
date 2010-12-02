@@ -45,7 +45,7 @@ public class ExtractAllFeatures {
 		fes.add(new ResponseCountFE());
 		fes.add(new PostCommentSimilarityFE());
 		fes.add(new ReadabilityFE());
-		//fes.add(new FrequentWordIndexFE());
+		fes.add(new FrequentWordIndexFE());
 		
 	}
 	
@@ -109,7 +109,7 @@ public class ExtractAllFeatures {
 		ArffSaver saver = new ArffSaver();
 		saver.setInstances(insts);
 		try {
-			saver.setFile(new File("output/features_around500.arff"));
+			saver.setFile(new File("output/features_01.arff"));
 			saver.writeBatch();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
