@@ -12,36 +12,28 @@ import java.util.ArrayList;
 
 import weka.core.Instances;
 
+import edu.gatech.nl10.constructivecriticism.core.ExtractAllFeatures;
 import edu.gatech.nl10.constructivecriticism.models.Comment;
 import edu.gatech.nl10.constructivecriticism.models.Post;
 
 public class HTMLGenerator {
-//	private static String taggedhtmlfile = "data/taggedhtml.txt";
-//
-//	private static ArrayList<Comment> getNotWorthyComments() {
-//		String datafile = "data/posts.xml";
-//		ArrayList<Comment> notworthyComments = new ArrayList<Comment>();
-//
-//		ArrayList<Comment> all_comments = new ArrayList<Comment>();
-//		ArrayList<Post> posts = XMLParser.parse(datafile);
-//		for (Post post : posts)
-//			all_comments.addAll(post.comments);
-//
-//		BufferedReader in = null;
-//		try {
-//			in = new BufferedReader(new FileReader(taggedhtmlfile));
-//			String nextline = in.readLine();
-//			while(nextline!=null) {
-//				if(nextline == "NotWorthy")
-//					notworthyComments.add(all_comments.get(i))
-//				nextline = in.readLine();
-//			}
-//		} catch (Exception e1) {
-//			e1.printStackTrace();
-//		}
-//
-//		return null;
-//	}
+	private static void makeARFF() {
+		String datafile = "scripts/article.xml";
+
+		ArrayList<Comment> all_comments = new ArrayList<Comment>();
+		ArrayList<Post> posts = XMLParser.parse(datafile);
+		for (Post post : posts)
+			all_comments.addAll(post.comments);
+		
+		String[] worths = new String[all_comments.size()];
+		int i = 0;
+		for (Comment c: all_comments)
+			worths[i++] = "NotWorthy";
+		
+		ExtractAllFeatures eaf = new ExtractAllFeatures();	
+		eaf.processComments(all_comments, worths, "scripts/article.arff");
+
+	}
 	
 	public static void write(String url, ArrayList<Comment> comments) {
 		File file;
@@ -76,10 +68,8 @@ public class HTMLGenerator {
 	}
 	
 	public static void main(String args[]) {
-		String url = "http://news.cnet.com/8301-13577_3-20022753-36.html?part=rss&amp;amp;subj=news&amp;amp;tag=2547-1_3-0-20";
-		Comment c = new Comment("Awesome article.");
-		ArrayList<Comment> comments = new ArrayList<Comment>();
-		comments.add(c);
-		HTMLGenerator.write(url, comments);
+		HTMLGenerator.makeARFF();
+
+//		HTMLGenerator.write(url, comments);
 	}
 }

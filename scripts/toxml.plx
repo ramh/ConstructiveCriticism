@@ -22,10 +22,11 @@ my @comments;
 my @responses;
 my $set=0;
 
-$url="8301-17852_3-20022698-71.html";
+#$url="8301-17852_3-20022698-71.html";
+$url="8301-30684_3-20024325-265.html";
 $url=$ARGV[0] if (defined $ARGV[0]);
 
-open OUT, ">>data/article.xml";
+open OUT, ">>article.xml";
 print OUT '<?xml version="1.0"?>';
 print OUT "\n<posts>\n";
 
