@@ -28,7 +28,7 @@ public class XMLParser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			// parse using builder to get DOM representation of the XML file
-			dom = db.parse("data/posts.xml");
+			dom = db.parse("data/hugeposts.xml");
 
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();

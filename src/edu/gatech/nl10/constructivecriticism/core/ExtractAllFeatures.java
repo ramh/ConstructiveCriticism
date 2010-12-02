@@ -118,8 +118,8 @@ public class ExtractAllFeatures {
 		
 		return insts;
 	}
-	public String datafile = "data/posts.xml";
-	public String[] worthfiles = {"data/worthkelsey1.txt"};
+	public String datafile = "data/hugeposts.xml";
+	public String[] worthfiles = {"data/worthkelsey1.txt", "data/worthkelsey2.txt"};
 	
 	public Instances loadWorthProcess() {
 		ArrayList<Comment> all_comments = new ArrayList<Comment>();
@@ -232,8 +232,8 @@ public class ExtractAllFeatures {
 		ExtractAllFeatures eaf = new ExtractAllFeatures();
 //		System.out.println(eaf.processComments(all_comments));
 //		System.out.println(eaf.getFeatureNames().toString());
-		//eaf.labelComments(0, "data/worthkelsey1.txt");
-		eaf.loadWorthProcess();
+		eaf.labelComments(1000, "data/worthkelsey2.txt");
+		//eaf.loadWorthProcess();
 		
 
 	}
