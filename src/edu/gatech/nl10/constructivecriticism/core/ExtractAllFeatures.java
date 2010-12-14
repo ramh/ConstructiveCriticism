@@ -109,7 +109,7 @@ public class ExtractAllFeatures {
 		ArffSaver saver = new ArffSaver();
 		saver.setInstances(insts);
 		try {
-			saver.setFile(new File("output/features_around500.arff"));
+			saver.setFile(new File("output/features_around500sansnnenna.arff"));
 			saver.writeBatch();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -119,8 +119,8 @@ public class ExtractAllFeatures {
 		return insts;
 	}
 	public String datafile = "data/hugeposts.xml";
-	public String[] worthfiles = {"data/worthkelsey1.txt", "data/worthkelsey2.txt",
-								  "data/worthnnenna1.txt", "data/worthnnenna2.txt"};
+	public String[] worthfiles = {"data/worthkelsey1.txt", "data/worthkelsey2.txt"};
+								  //"data/worthnnenna1.txt", "data/worthnnenna2.txt"};
 	
 	public Instances loadWorthProcess() {
 		ArrayList<Comment> all_comments = new ArrayList<Comment>();
