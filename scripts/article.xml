@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<posts>
+	<post id="8301-30684_3-20024325-265.html">
+	<title> Google tweaks search recipe to ding scam artists </title>
+	<body> 
+
+
+One retailer&amp;#39;s quest for negative ratings--and Googlejuice--has forced the search giant to change its algorithm.
+(Credit:
+Screenshot by Tom Krazit/CNET)
+
+Google has changed its search algorithm to penalize sites deemed to provide an "extremely poor user experience" following a New York Times story on a merchant who justified abusive behavior towards customers as a search-engine optimization tactic. Amit Singhal, a Google fellow and a key search engineer, announced the change in a blog post today by noting "we were horrified to read about Ms. Rodriguez's dreadful experience."  Sunday's Times article highlighted the experience of Clarabelle Rodriguez, a customer of a site called DecorMyEyes.com (deliberately not linked), who was berated by site owner Vitaly Borker after disputing a credit-card charge for a purchase of eyeglasses that appeared to be counterfeit.  Borker claimed that he enjoyed negative publicity about his company on consumer advocacy Web sites because it improved his ranking within Google search results. Although search experts noted that Borker wasn't actually benefiting from those reviews--most of the sites added "no follow" attributes to their links to his site--Google nonetheless decided to incorporate some notion of business ethics into the hundreds of signals that make up the Google algorithm, Singhal said. "In the last few days we developed an algorithmic solution which detects the merchant from the Times article along with hundreds of other merchants that, in our opinion, provide a extremely poor user experience," Singhal wrote. "The algorithm we incorporated into our search rankings represents an initial solution to this issue, and Google users are now getting a better experience as a result." Of course, just exactly what constitutes an "extremely poor user experience" was not detailed, and could be immediate fodder for those who feel Google's secret ranking sauce already holds too much power over the Internet. It's a difficult problem: Google can't explain its methods because malevolent sites like Borker's would immediately seize the advantage to boost their rankings, but some sites that get bounced by the new changes might have a legitimate beef that they've been unfairly smeared. "We know that people will keep trying: attempts to game Google's ranking, like the ones mentioned in the article, go on 24 hours a day, every single day. That's why we cannot reveal the details of our solution--the underlying signals, data sources, and how we combined them to improve our rankings--beyond what we've already said," Singhal wrote. Google is constantly tweaking the search algorithm that has made it billions, averaging more than one change a day, according to Google's spam czar Matt Cutts. Some are obviously bigger than others, however: few changes get their own blog post.
+ </body>
+	<comments>
+		<comment id="0" responses="0">That was an epic NYT story for the tactics this guy used, not just to raise his rankings, but how he rankled some customers, even going so far as to impersonate them and call their credit card company to cancel the complaint against him. The guy is freaking scary.</comment>
+		<comment id="1" responses="0">In one word: GOOD</comment>
+		<comment id="2" responses="0">It is said that "All Press is Good Press": I guess this is a perfect example of it.<br /><br />I actually think there are many problems with the current Search Engine Ranking system, especially around small businesses being forced to blog to improve their Rank:<br /><br />http://www.customsoftwarebypreston.com/seo-rankings-blogging</comment>
+		<comment id="3" responses="0">Interesting that google is trying to be the arbiter of good user experiences. One could probably argue that they don't have the best UI either (they don't invest much into UI). A great article at Fast company talks about their lack of focus on design which their lead designer quit in 2009 over.<br /><br />http://www.fastcompany.com/blog/alissa-walker/designerati/googles-lead-designer-doug-bowman-leaves-twitter-cites-lack-design-go<br /><br />Concha del Toro<br />http://conchadeltoro.com</comment>
+		<comment id="4" responses="0">That site never came up on Bing with those search terms. Interesting!</comment>
+	</comments>
+	</post>
+</posts>

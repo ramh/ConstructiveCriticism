@@ -1,0 +1,22 @@
+@relation processed_comments
+
+@attribute Worth {Worthy,NotWorthy}
+@attribute character_count numeric
+@attribute word_count numeric
+@attribute emoticon_count numeric
+@attribute punctuation_count numeric
+@attribute response_count numeric
+@attribute post_comment_similarity numeric
+@attribute sentence_count numeric
+@attribute avg_sentence_len numeric
+@attribute avg_syllables_per_word numeric
+@attribute flesch_kinkaid_ease numeric
+@attribute gunning_fog_index numeric
+@attribute freq_word_index numeric
+
+@data
+NotWorthy,264,49,0,5,0,0.05675,2,24.5,1.428571,61.110357,12.24898,1.412102
+NotWorthy,17,4,0,1,0,0,1,4,1,118.175,1.6,1.225391
+NotWorthy,309,43,0,14,0,0.072464,4,11.5,1.673913,53.549457,9.817391,1.27898
+NotWorthy,461,55,1,29,0,0.051627,7,8.428571,2.152542,16.174915,10.15109,1.416193
+NotWorthy,69,12,0,2,0,0.05675,2,6,1.416667,80.895,5.733333,0.309935

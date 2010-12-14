@@ -46,6 +46,7 @@ public class ExtractAllFeatures {
 		fes.add(new PostCommentSimilarityFE());
 		fes.add(new ReadabilityFE());
 		//fes.add(new FrequentWordIndexFE());
+		fes.add(new FrequentWordIndexFE());
 		
 	}
 	
@@ -79,7 +80,7 @@ public class ExtractAllFeatures {
 		return fnames;
 	}
 	
-	public Instances processComments(ArrayList<Comment> comments, String[] worth) {
+	public Instances processComments(ArrayList<Comment> comments, String[] worth, String arffFileName) {
 		FastVector attr_names = new FastVector();
 		
 		//Adding worth nominal feature
@@ -109,7 +110,7 @@ public class ExtractAllFeatures {
 		ArffSaver saver = new ArffSaver();
 		saver.setInstances(insts);
 		try {
-			saver.setFile(new File("output/features_around500sansnnenna.arff"));
+			saver.setFile(new File(arffFileName));
 			saver.writeBatch();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -154,7 +155,7 @@ public class ExtractAllFeatures {
 		}
 		
 		ExtractAllFeatures eaf = new ExtractAllFeatures();	
-		return eaf.processComments(all_comments, worths);
+		return eaf.processComments(all_comments, worths, "output/features_01.arff");
 	}
 	
 	public void labelComments(int stind, String wfname) {

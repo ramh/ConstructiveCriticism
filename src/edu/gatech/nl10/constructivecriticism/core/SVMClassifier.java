@@ -43,26 +43,16 @@ public class SVMClassifier {
 			traininsts = new Instances[arfftrainfiles.length];
 			testinsts = new Instances[arfftestfiles.length];
 			for(int i=0;i<arfftrainfiles.length;i++) {
-				//BufferedReader reader = new BufferedReader(new FileReader(arfftrainfiles[i]));
-				//ArffReader arff = new ArffReader(reader);
 				arff.setSource(new File(arfftrainfiles[i]));
 
 				traininsts[i] = arff.getDataSet();
 				traininsts[i].setClassIndex(0);
-				//reader = new BufferedReader(new FileReader(arfftestfiles[i]));
-				//arff = new ArffReader(reader);
 			}
 			for(int i=0;i<arfftestfiles.length;i++) {
 				arff = new ArffLoader();
 				arff.setSource(new File(arfftestfiles[i]));
 				testinsts[i] = arff.getDataSet();
 				testinsts[i].setClassIndex(0);
-
-				//if(i == 0)
-				//	testinsts[i].setClassIndex(0);
-				//if(i > 0) {
-				//	testinsts[i] = Instances.mergeInstances(testinsts[i], testinsts[i-1]);
-				//}
 			}
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
@@ -147,23 +137,7 @@ public class SVMClassifier {
 		System.out.println(accuracy / (double)nonneutral);
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		/*String arfftrainfiles[] = {"output/baseline_train.arff",
-		                           "output/linguistic_train.arff",
-		                           "output/contextual_train.arff",
-		                           "output/semantic_train.arff"};
-		String arfftestfiles[] = {"output/baseline_test.arff",
-                				  "output/linguistic_test.arff",
-                                  "output/contextual_test.arff",
-                                  "output/semantic_test.arff"};*/
-		
-		// Independent Executions
-		//SVMClassification.getArff("data/train.40000.2009.05.25", "data/testdata.manual.2009.05.25", new BaselineFeatureExtractor(), "baseline");
-		//SVMClassification.getArff("data/train.40000.2009.05.25", "data/testdata.manual.2009.05.25", new ContextualFeatureExtractor(), "contextual");
-		
 		//Combined
 		String arfftrainfiles[] = {"output/extracted_features.arff"};
 		String arfftestfiles[] = {};

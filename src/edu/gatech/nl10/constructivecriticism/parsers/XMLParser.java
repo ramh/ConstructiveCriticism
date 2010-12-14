@@ -18,7 +18,7 @@ import edu.gatech.nl10.constructivecriticism.models.Post;
 public class XMLParser {
 	private static Document dom;
 	
-	private static void parseXmlFile() {
+	private static void parseXmlFile(String xmlFileName) {
 		// get the factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
@@ -28,7 +28,7 @@ public class XMLParser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			// parse using builder to get DOM representation of the XML file
-			dom = db.parse("data/hugeposts.xml");
+			dom = db.parse(xmlFileName);
 
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
@@ -142,7 +142,7 @@ public class XMLParser {
 	 * @return ArrayList of Post objects
 	 */
 	public static ArrayList<Post> parse(String xmlFileName) {
-		parseXmlFile();
+		parseXmlFile(xmlFileName);
 		return parseDocument();
 	}
 }
